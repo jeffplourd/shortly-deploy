@@ -7,7 +7,7 @@ app.listen(port);
 
 console.log('Server now listening on port ' + port);
 
-var normalizePort = function(val) {
+function normalizePort(val) {
   var port = parseInt(val, 10);
   if (isNaN(port)) {
     return val;
