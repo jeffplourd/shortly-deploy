@@ -3,6 +3,10 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
+      dist: {
+        src: ['public/client/**/*.js'],
+        dest: 'dist/public/client.js'
+      }
     },
 
     mochaTest: {
@@ -21,12 +25,15 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      dist: {
+        files: {
+          'dist/public/client.min.js': ['dist/public/client.js']
+        }
+      }
     },
 
     jshint: {
-      files: [
-        // Add filespec list here
-      ],
+      files: ['public/client/**/*.js'],
       options: {
         force: 'true',
         jshintrc: '.jshintrc',
@@ -38,7 +45,10 @@ module.exports = function(grunt) {
     },
 
     cssmin: {
-        // Add filespec list here
+      target: {
+        files: {'dist/style.min.css': ['public/style.css']
+        }
+      }
     },
 
     watch: {
@@ -60,6 +70,7 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+        command: "say 'hello world, can you hear me, Dave?'"
       }
     },
   });
@@ -105,9 +116,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('deploy', [
-      // add your production server task here
-  ]);
+  grunt.registerTask('deploy', ['jshint','cssmin', 'concat', 'uglify','shell']);
 
 
 };
