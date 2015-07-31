@@ -11,7 +11,7 @@ db.once('open', function() {
 });
 
 // connect to our database
-mongoose.connect('mongodb://localhost/shortlydb');
-
+mongoose.connect('mongodb://MongoLab-6:l.rTGPMAng31CicuR28ZRTOcpTylRBD1xLnKVakhe7k-@ds045097.mongolab.com:45097/MongoLab-6');
+// mongodb://MongoLab-6:l.rTGPMAng31CicuR28ZRTOcpTylRBD1xLnKVakhe7k-@ds045097.mongolab.com:45097/MongoLab-6
 
 module.exports = db;
