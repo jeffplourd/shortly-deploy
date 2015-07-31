@@ -70,7 +70,12 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
-        command: "say 'hello world, can you hear me, Dave?'"
+        command: "git push azure master"
+        options: {
+          stdout: true,
+          stderr: true,
+          failOnError: true
+        }
       }
     },
   });
@@ -102,21 +107,26 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
 
   grunt.registerTask('test', [
-    'mochaTest'
+    'mochaTest',
+    'jshint'
   ]);
 
   grunt.registerTask('build', [
+    'cssmin',
+    'concat',
+    'uglify'
   ]);
 
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
       // add your production server task here
+      grunt.task.run(['shell:prodServer']);
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
   });
 
-  grunt.registerTask('deploy', ['jshint','cssmin', 'concat', 'uglify','shell']);
+  grunt.registerTask('deploy', ['test', 'build', 'upload']);
 
 
 };
